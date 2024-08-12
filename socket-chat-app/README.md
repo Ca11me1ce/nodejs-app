@@ -1,6 +1,5 @@
-# socket-chat-app
-## Description: Chat App using socket.io
-### Tech Skills: Node.js, Express, Socket.IO
+# socket-chat-app: Chat App using socket.io
+`Node.js` `Express.js` `Socket.IO`
 
 ### Run command: 
 ```
