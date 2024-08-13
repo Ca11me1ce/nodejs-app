@@ -5,7 +5,14 @@
 ```
 node ./index.js
 ```
-
+### Install Express and Socket IO 
+```
+npm install express socket.io
+```
+### Initialize App
+```
+npm init -y
+```
 ### Express App
 ```
 const express = require('express');
@@ -21,5 +28,5 @@ app.listen(PORT, () => {
 
 ```
 
-### Design
+### socket-chat-app Design
 ![socket-chat-app](./images/socket-chat-app.png "socket-chat-app")
