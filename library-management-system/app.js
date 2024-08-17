@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const books = [{
+        bookId: 1,
         bookName: "Rudest Book Ever",
         bookAuthor: "Shwetabh Gangwar",
         bookPages: 200,
@@ -8,6 +9,7 @@ const books = [{
         bookState: "Available"
     },
     {
+        bookId: 2,
         bookName: "Do Epic Shit",
         bookAuthor: "Ankur Wariko",
         bookPages: 200,
@@ -35,12 +37,14 @@ app.get("/", function (req, res) {
 
 // Add a new book
 app.post("/", (req, res) => {
+    const inputBookId = req.body.bookId
     const inputBookName = req.body.bookName
     const inputBookAuthor = req.body.bookAuthor
     const inputBookPages = req.body.bookPages
     const inputBookPrice = req.body.bookPrice
 
     books.push({
+        bookId: inputBookId,
         bookName: inputBookName,
         bookAuthor: inputBookAuthor,
         bookPages: inputBookPages,
@@ -89,6 +93,45 @@ app.post('/delete', (req, res) => {
             books.splice((j - 1), 1)
         }
     })
+    res.render("index", {
+        data: books
+    })
+})
+
+// Update the book
+app.post('/update', (req, res) => {
+    const inputBookId = req.body.bookId
+    const inputBookName = req.body.bookName
+    const inputBookAuthor = req.body.bookAuthor
+    const inputBookPages = req.body.bookPages
+    const inputBookPrice = req.body.bookPrice
+
+    var isExist = false
+
+    var j = 0;
+    books.forEach(book => {
+        j = j + 1;
+        if (book.bookId == inputBookId) {
+            isExist = true
+            book.bookName = inputBookName
+            book.bookAuthor = inputBookAuthor
+            book.bookPages = inputBookPages
+            book.bookPrice = inputBookPrice            
+        }
+    })
+
+    if (!isExist)
+    {
+        books.push({
+            bookId: inputBookId,
+            bookName: inputBookName,
+            bookAuthor: inputBookAuthor,
+            bookPages: inputBookPages,
+            bookPrice: inputBookPrice,
+            bookState: "Available"
+        })
+    }
+
     res.render("index", {
         data: books
     })

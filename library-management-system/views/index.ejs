@@ -10,6 +10,7 @@
     <h1>All Books</h1>
     <table>
         <tr>
+            <th>Book ID</th>
             <th>Book Name</th>
             <th>Book Author</th>
             <th>Book Pages</th>
@@ -21,6 +22,9 @@
         </tr>
         <% data.forEach(element=> { %>
             <tr>
+                <td>
+                    <%= element.bookId %>
+                </td>
                 <td>
                     <%= element.bookName %>
                 </td>
@@ -67,6 +71,8 @@
     <h1>Add Book</h1>
 
     <form action="/" method="post">
+        <input type="text" placeholder="Book ID" 
+               name="bookId">
         <input type="text" placeholder="Book Name" 
                name="bookName">
         <input type="text" placeholder="Book Author" 
@@ -76,6 +82,22 @@
         <input type="text" placeholder="Book Price" 
                name="bookPrice">
         <button type="submit">Add</button>
+    </form>
+
+    <h1>Update Book</h1>
+
+    <form action="/update" method="post">
+        <input type="text" placeholder="Book ID" 
+               name="bookId">
+        <input type="text" placeholder="Book Name" 
+               name="bookName">
+        <input type="text" placeholder="Book Author" 
+               name="bookAuthor">
+        <input type="text" placeholder="Book Pages" 
+               name="bookPages">
+        <input type="text" placeholder="Book Price" 
+               name="bookPrice">
+        <button type="submit">Update</button>
     </form>
 </body>
 
