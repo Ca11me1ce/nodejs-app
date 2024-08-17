@@ -44,12 +44,14 @@
 
     <script>
         function populateFileListWithIcons() {
+            // Get file list and populate files in the page
             fetch('/view')
                 .then(response => response.json())
                 .then(data => {
                     const fileList = document.getElementById('fileList');
                     fileList.innerHTML = '';
 
+                    // Response data is file list
                     data.files.forEach(fileName => {
                         const listItem = document.createElement('li');
       listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
@@ -58,9 +60,13 @@
 
                         const iconSpan = document.createElement('span');
                         iconSpan.className = 'me-3';
+
+                        // Get file-type icon
                         iconSpan.innerHTML = getFileIconHTML(fileExtension);
 
                         const fileLink = document.createElement('a');
+
+                        // Get file hyper link
                         fileLink.href = `/uploads/${fileName}`;
                         fileLink.textContent = fileName;
 
@@ -74,6 +80,7 @@
         }
 
         function getFileIconHTML(fileExtension) {
+            // Use different icons for different file types
             const iconClasses = {
                 pdf: 'far fa-file-pdf',
                 doc: 'far fa-file-word',
@@ -98,12 +105,15 @@
             const deleteForm = document.getElementById('deleteForm');
             const formData = new FormData(deleteForm);
 
+            // Delete files
             fetch(`/delete/${formData.get('fileName')}`, {
                 method: 'DELETE',
             })
                 .then(response => response.text())
                 .then(message => {
                     alert(message);
+
+                    // Restructure the file list and options in the page
                     populateFileListWithIcons();
                     populateDeleteOptions();
                 })
@@ -111,6 +121,8 @@
         }
 
         function populateDeleteOptions() {
+            // Get file list and populate the delete options
+            // Response data is file list
             fetch('/view')
                 .then(response => response.json())
                 .then(data => {
@@ -126,6 +138,7 @@
                 .catch(error => console.error(error));
         }
 
+        // Populate files to the page and delete options when page is loaded
         populateFileListWithIcons();
         populateDeleteOptions();
     </script>

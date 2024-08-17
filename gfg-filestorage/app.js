@@ -22,6 +22,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+// Use /uploads to replace the static path
 app.use('/uploads', express.static(path.join(__dirname, 'filestorage')));
 
 app.get('/', (req, res) => {
@@ -29,14 +30,17 @@ app.get('/', (req, res) => {
 });
 
 app.post('/upload', upload.single('file'), (req, res) => {
+    // Upload file and redirect /upload
     res.redirect('/')
 });
 
 app.delete('/delete/:fileName', (req, res) => {
+  // Delete file
   const fileName = req.params.fileName;
   const filePath = path.join(__dirname, 'filestorage', fileName);
 
   if (fs.existsSync(filePath)) {
+    // If file exists, unlink it
     fs.unlinkSync(filePath);
     res.send(`File "${fileName}" has been deleted.`);
   } else {
@@ -45,6 +49,7 @@ app.delete('/delete/:fileName', (req, res) => {
 });
 
 app.get('/view', (req, res) => {
+  // Read filestorage to get file list to response the file list
   const uploadDirectory = path.join(__dirname, 'filestorage');
   fs.readdir(uploadDirectory, (err, files) => {
     if (err) {
